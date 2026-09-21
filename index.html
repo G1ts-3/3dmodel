@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Spectrophotometer Uv vis ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Interactive 3D</title>
+<title>Spectrophotometer Uv vis | Interactive 3D</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="64x64" href="favicon-64.png">
+<link rel="shortcut icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -112,12 +116,18 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: var(--stage-fixed-ink);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
     flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .brand-badge img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
   }
 
   .brand-text strong {
@@ -468,7 +478,7 @@
 
   <section class="viewer-hero">
     <div class="brand">
-      <div class="brand-badge">&#128300;</div>
+      <div class="brand-badge"><img src="favicon-64.png" alt="Logo" width="32" height="32"></div>
       <div class="brand-text">
         <strong>Spectrophotometer Uv vis</strong>
         <span>model oleh akardunia</span>
