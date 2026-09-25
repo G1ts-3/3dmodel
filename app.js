@@ -1,5 +1,7 @@
 "use strict";
 
+const bundleRelease = "2026-09-25-r7";
+
 const viewer = document.querySelector("#instrument-model");
 const viewerFrame = document.querySelector("#viewer-frame");
 const viewerLoading = document.querySelector("#viewer-loading");
@@ -45,6 +47,7 @@ const parts = [
   { title: "Ruang Sampel", description: "Dudukan tiga kuvet bergerak untuk membawa blank atau sampel ke lintasan cahaya di antara sumber dan detektor.", target: "-0.089m 0.165m -0.111m", orbit: "196deg 35deg 0.28m" },
 ];
 const defaultCamera = { orbit: "180deg 72deg auto", target: "-0.19m 0.18m -0.06m" };
+const simulationCamera = { orbit: "180deg 58deg 0.64m", target: "-0.285m 0.205m -0.087m" };
 const state = {
   powered: false,
   wavelength: 500,
@@ -66,6 +69,14 @@ let transmittedMaterial = null;
 let lcdCanvas = null;
 let lcdTimer = null;
 let lcdGeneration = 0;
+let pendingExploreLid = false;
+let lidTransition = null;
+
+function restoreExploreLid() {
+  if (!pendingExploreLid || viewMode !== "components" || !modelReady || state.busy) return;
+  pendingExploreLid = false;
+  if (!state.lidOpen) void animateLid(true);
+}
 
 function setCamera(target, orbit) {
   viewer.setAttribute("camera-target", target);
@@ -74,7 +85,8 @@ function setCamera(target, orbit) {
 
 function resetView() {
   activePart = -1;
-  setCamera(defaultCamera.target, defaultCamera.orbit);
+  const camera = viewMode === "simulation" ? simulationCamera : defaultCamera;
+  setCamera(camera.target, camera.orbit);
   anatomyHotspots.forEach(button => button.classList.remove("is-active"));
   document.querySelector("#navigation-count").textContent = "— / 07";
   partCard.hidden = true;
@@ -97,9 +109,9 @@ function focusPart(index) {
 function focusOperation(step) {
   if (viewMode !== "simulation") return;
   const camera = {
-    power: ["-0.22m 0.19m -0.07m", "174deg 58deg 0.90m"],
-    blank: ["-0.15m 0.19m -0.09m", "183deg 56deg 0.88m"],
-    measure: ["-0.15m 0.19m -0.09m", "174deg 58deg 0.89m"],
+    power: [simulationCamera.target, simulationCamera.orbit],
+    blank: ["-0.22m 0.19m -0.08m", "180deg 58deg 0.82m"],
+    measure: ["-0.22m 0.19m -0.08m", "180deg 58deg 0.82m"],
   }[step];
   if (camera) setCamera(...camera);
 }
@@ -107,6 +119,11 @@ function focusOperation(step) {
 function setViewMode(mode) {
   viewMode = mode;
   const sim = mode === "simulation";
+  if (sim) pendingExploreLid = false;
+  else {
+    pendingExploreLid = true;
+    if (state.demoRunning) state.stopDemo = true;
+  }
   viewerFrame.classList.toggle("is-simulation", sim);
   document.querySelector("#view-components").setAttribute("aria-pressed", String(!sim));
   document.querySelector("#view-simulator").setAttribute("aria-pressed", String(sim));
@@ -115,8 +132,9 @@ function setViewMode(mode) {
   procedureCard.hidden = !sim;
   document.querySelector("#viewer-navigation").hidden = sim;
   partCard.hidden = sim || activePart < 0;
-  if (sim) resetView();
+  resetView();
   renderGuide();
+  if (!sim) restoreExploreLid();
 }
 
 function setStatus(message, tag, lcd) {
@@ -195,7 +213,7 @@ function renderConsole() {
   ui.modeTrans.disabled = !on || state.busy || state.demoRunning;
   ui.lcdState.textContent = !on ? "● STANDBY" : state.busy ? "● BUSY" : "● READY";
   lidToggle.disabled = !modelReady || state.busy || state.demoRunning;
-  lidLabel.textContent = state.lidOpen ? "Tutup ruang sampel" : "Buka ruang sampel";
+  lidLabel.textContent = lidTransition || (state.lidOpen ? "Tutup ruang sampel" : "Buka ruang sampel");
   renderGuide();
   queueLCD();
 }
@@ -294,49 +312,80 @@ function lidAngleAt(name, t) {
 // A single finite glTF clip drives every moving node, including the original
 // glass cuvette holder. Each clip explicitly includes the entire pose.
 async function playInstrumentClip(name) {
-  if (!modelReady || typeof viewer.play !== "function") return;
+  if (!modelReady || typeof viewer.play !== "function") return false;
   if (!viewer.availableAnimations?.includes(name)) {
     console.error(`Klip animasi tidak ditemukan: ${name}`);
-    return;
+    return false;
   }
-  viewer.animationCrossfadeDuration = 0;
-  viewer.animationName = name;
-  if (viewer.updateComplete) await viewer.updateComplete;
-  viewer.currentTime = 0;
-  await new Promise(resolve => {
-    let finished = false;
-    let fallback;
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      viewer.removeEventListener("finished", finish);
-      clearTimeout(fallback);
-      resolve();
-    };
-    viewer.addEventListener("finished", finish);
-    viewer.play({ repetitions: 1 });
-    const duration = Number(viewer.duration) || 2.5;
-    fallback = setTimeout(finish, (duration + 1.0) * 1000);
-    const follow = () => {
-      if (finished) return;
-      updateLidHotspot(lidAngleAt(name, viewer.currentTime || 0));
+  try {
+    viewer.animationCrossfadeDuration = 0;
+    viewer.animationName = name;
+    if (viewer.updateComplete) await viewer.updateComplete;
+    viewer.currentTime = 0;
+    let failed = false;
+    await new Promise(resolve => {
+      let finished = false;
+      const duration = Number(viewer.duration);
+      let fallback;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        viewer.removeEventListener("finished", finish);
+        clearTimeout(fallback);
+        // Complete the pose even if the browser does not fire `finished`.
+        try {
+          if (Number.isFinite(duration) && duration > 0) viewer.currentTime = duration;
+          if (typeof viewer.pause === "function") viewer.pause();
+        } catch (error) { console.warn("Gagal menempatkan pose akhir animasi:", error); }
+        resolve();
+      };
+      viewer.addEventListener("finished", finish);
+      fallback = setTimeout(finish, ((Number.isFinite(duration) && duration > 0 ? duration : 2.5) + 1.0) * 1000);
+      try { viewer.play({ repetitions: 1 }); }
+      catch (error) { console.error(`Tidak dapat memutar ${name}:`, error); failed = true; finish(); }
+      const follow = () => {
+        if (finished) return;
+        updateLidHotspot(lidAngleAt(name, viewer.currentTime || 0));
+        requestAnimationFrame(follow);
+      };
       requestAnimationFrame(follow);
-    };
-    requestAnimationFrame(follow);
-  });
+    });
+    return !failed;
+  } catch (error) {
+    console.error(`Animasi ${name} terhenti:`, error);
+    return false;
+  }
 }
 
 async function animateLid(open) {
   if (state.busy || state.lidOpen === open) return;
   state.busy = true;
-  lidLabel.textContent = open ? "Membuka…" : "Menutup…";
+  lidTransition = open ? "Membuka…" : "Menutup…";
   renderConsole();
   const clip = state.powered ? `Lid ${open ? "open" : "close"} ${state.cell}` : `Lid ${open ? "open" : "close"} off`;
-  await playInstrumentClip(clip);
-  state.lidOpen = open;
-  updateLidHotspot(open ? 0 : -Math.PI / 2);
+  let completed = false;
+  try {
+    if (await playInstrumentClip(clip)) {
+      completed = true;
+      state.lidOpen = open;
+      updateLidHotspot(open ? 0 : -Math.PI / 2);
+    }
+  } finally {
+    if (!completed) pendingExploreLid = false;
+    lidTransition = null;
+    state.busy = false;
+    renderConsole();
+    restoreExploreLid();
+  }
+}
+
+function abortOperation() {
+  setCutaway(false);
   state.busy = false;
+  setStatus("Animasi 3D terhenti. Ulangi langkah setelah model siap.", "COBA ULANG", "ANIMASI TERHENTI");
   renderConsole();
+  restoreExploreLid();
+  return false;
 }
 
 function setCutaway(active) {
@@ -355,7 +404,7 @@ async function setPower(on) {
   renderConsole();
   const clip = on ? (state.lidOpen ? "Power on" : "Power on closed")
     : `Power off ${state.cell} ${state.lidOpen ? "open" : "closed"}`;
-  await playInstrumentClip(clip);
+  if (!await playInstrumentClip(clip)) return abortOperation();
   state.powered = on;
   state.blankAt = null;
   state.reading = null;
@@ -369,6 +418,7 @@ async function setPower(on) {
   setStatus(on ? "Alat siap. Atur panjang gelombang, lalu tekan Blank." : "Alat mati. Tekan Power untuk memulai.",
     on ? "BLANK DIPERLUKAN" : "OFFLINE", on ? "TEKAN BLANK" : "SISTEM MATI");
   renderConsole();
+  restoreExploreLid();
   return true;
 }
 
@@ -387,20 +437,21 @@ async function blankProcedure() {
   focusOperation("blank");
   setStatus("Membuka penutup, mengangkat kuvet blank, lalu menggeser dudukan…", "PASANG BLANK", "MEMASANG BLANK");
   renderConsole();
-  await playInstrumentClip(`Load blank from ${state.cell} ${state.lidOpen ? "open" : "closed"}`);
+  if (!await playInstrumentClip(`Load blank from ${state.cell} ${state.lidOpen ? "open" : "closed"}`)) return abortOperation();
   state.cell = "blank";
   state.lidOpen = false;
   updateLidHotspot(-Math.PI / 2);
   setStatus("Penutup tertutup. Cahaya melewati blank untuk menetapkan baseline…", "KALIBRASI", "BLANKING…");
   renderConsole();
   setCutaway(true);
-  await playInstrumentClip("Read blank");
+  if (!await playInstrumentClip("Read blank")) return abortOperation();
   setCutaway(false);
   state.blankAt = state.wavelength;
   state.reading = 0;
   state.busy = false;
   setStatus(`Blank selesai pada ${state.wavelength} nm. Tekan Ukur untuk mengganti kuvet dengan sampel.`, "SIAP UKUR", "BASELINE TERSIMPAN");
   renderConsole();
+  restoreExploreLid();
   return true;
 }
 
@@ -411,7 +462,7 @@ async function measureProcedure() {
   focusOperation("measure");
   setStatus("Membuka penutup, mengangkat kuvet sampel, lalu menempatkannya…", "PASANG SAMPEL", "MEMASANG SAMPEL");
   renderConsole();
-  await playInstrumentClip(`Load sample from ${state.cell} ${state.lidOpen ? "open" : "closed"}`);
+  if (!await playInstrumentClip(`Load sample from ${state.cell} ${state.lidOpen ? "open" : "closed"}`)) return abortOperation();
   state.cell = "sample";
   state.lidOpen = false;
   updateLidHotspot(-Math.PI / 2);
@@ -421,12 +472,13 @@ async function measureProcedure() {
   setStatus("Mengukur… Cahaya diteruskan sampel dan diterima fotodioda.", "MENGUKUR", "MEMBACA SAMPEL…");
   renderConsole();
   setCutaway(true);
-  await playInstrumentClip("Read sample");
+  if (!await playInstrumentClip("Read sample")) return abortOperation();
   setCutaway(false);
   state.reading = result;
   state.busy = false;
   setStatus(`Pengukuran selesai pada ${state.wavelength} nm. Hasil tampil pada LCD model.`, "SELESAI", "HASIL TERSEDIA");
   renderConsole();
+  restoreExploreLid();
   return true;
 }
 
@@ -445,6 +497,7 @@ async function runDemo() {
     state.demoRunning = false;
     state.stopDemo = false;
     renderConsole();
+    restoreExploreLid();
   }
 }
 
@@ -490,12 +543,24 @@ viewer.addEventListener("pointerup", event => {
 viewer.addEventListener("pointercancel", () => { pointerStart = null; });
 
 viewer.addEventListener("load", () => {
+  const cssRelease = typeof getComputedStyle === "function"
+    ? getComputedStyle(document.documentElement).getPropertyValue("--bundle-release").trim().replace(/["']/g, "")
+    : bundleRelease;
+  const expectedKeys = ["PhysicalPowerButtonLabelMaterial", "PhysicalBlankButtonLabelMaterial", "PhysicalMeasureButtonLabelMaterial"];
+  const names = new Set(viewer.model?.materials?.map(material => material.name) || []);
+  if (document.body?.dataset?.release !== bundleRelease || cssRelease !== bundleRelease || expectedKeys.some(name => !names.has(name))) {
+    loadingMessage.textContent = "Versi halaman, CSS, skrip, atau model 3D tidak cocok. Ekstrak dan unggah semua berkas dari ZIP Revisi 07, lalu muat ulang halaman.";
+    viewerLoading.hidden = false;
+    viewerLoading.querySelector(".loading-spinner").hidden = true;
+    return;
+  }
   modelReady = true;
   viewerLoading.hidden = true;
   displayMaterial = viewer.model?.materials?.find(material => material.name === "LiveInstrumentLCD") || null;
   lidMaterial = viewer.model?.materials?.find(material => material.name === "LidShellCutaway") || null;
   transmittedMaterial = viewer.model?.materials?.find(material => material.name === "TransmittedBeam") || null;
   renderConsole();
+  restoreExploreLid();
 });
 viewer.addEventListener("error", () => {
   loadingMessage.textContent = "Model 3D tidak dapat dimuat. Periksa berkas dan muat ulang halaman.";
