@@ -36,105 +36,106 @@
             <div><span class="eyebrow">01 / EKSPLORASI</span><h1 id="explore-title">Kenali setiap bagian alat.</h1></div>
             <p>Putar model, pilih titik bernomor, lalu lihat cara kerjanya.</p>
           </div>
+          <div class="main-layout">
+            <div class="main-layout-left">
+              <div class="viewer-frame" id="viewer-frame">
+                <div class="viewer-grid" aria-hidden="true"></div>
+                <div class="viewer-topline" aria-hidden="true"><span>UV–VIS SPECTROPHOTOMETER</span><span>MODEL INTERAKTIF / 3D</span></div>
+                <div class="viewer-mode-switch" role="group" aria-label="Tampilan model 3D">
+                  <button type="button" id="view-components" aria-pressed="true">Bagian alat</button>
+                  <button type="button" id="view-simulator" aria-pressed="false">Simulasi 3D <span aria-hidden="true">↗</span></button>
+                </div>
+                <model-viewer
+                  id="instrument-model"
+                  src="./spectrophotometer.glb?v=3"
+                  alt="Model 3D spektrofotometer UV-Vis dengan panel dan ruang sampel yang terbuka"
+                  camera-controls
+                  disable-tap
+                  camera-orbit="180deg 72deg auto"
+                  camera-target="-0.19m 0.18m -0.06m"
+                  field-of-view="30deg"
+                  interpolation-decay="230"
+                  shadow-intensity="0.5"
+                  exposure="1.3"
+                  environment-image="neutral"
+                  interaction-prompt="none"
+                  aria-label="Model tiga dimensi spektrofotometer. Seret untuk memutar, gulir untuk memperbesar, atau pilih hotspot bernomor."
+                >
+                  <button class="hotspot" slot="hotspot-1" data-position="-0.014m 0.127m -0.099m" data-normal="-1m 0m 0m" type="button" aria-label="1. Sumber Cahaya" data-part="0">1</button>
+                  <button class="hotspot" slot="hotspot-2" data-position="-0.165m 0.136m -0.102m" data-normal="1m 0m 0m" type="button" aria-label="2. Detektor" data-part="1">2</button>
+                  <button class="hotspot" slot="hotspot-3" data-position="-0.099m 0.153m -0.107m" data-normal="0m 1m 0m" type="button" aria-label="3. Kuvet atau Wadah Sampel" data-part="2">3</button>
+                  <button class="hotspot" slot="hotspot-4" data-position="-0.295m 0.223m -0.035m" data-normal="0m 1m 0m" type="button" aria-label="4. Monitor" data-part="3">4</button>
+                  <button class="hotspot" slot="hotspot-5" data-position="-0.295m 0.205m -0.119m" data-normal="0m 1m 0m" type="button" aria-label="5. Tombol Kontrol" data-part="4">5</button>
+                  <button class="hotspot" slot="hotspot-6" data-position="-0.089m 0.328m 0.037m" data-normal="0m 0m 1m" type="button" aria-label="6. Penutup Ruang Sampel" data-part="5">6</button>
+                  <button class="hotspot" slot="hotspot-7" data-position="-0.088m 0.181m -0.184m" data-normal="0m 1m 0m" type="button" aria-label="7. Ruang Sampel" data-part="6">7</button>
+                  <button class="action-hotspot" slot="hotspot-power" data-position="-0.347m 0.226m -0.116m" data-normal="0m 1m 0m" type="button" id="model-power" aria-label="Tekan tombol Power pada model" hidden><span class="action-hotspot-dot">⏻</span><span>POWER</span></button>
+                  <button class="action-hotspot" slot="hotspot-blank" data-position="-0.315m 0.226m -0.116m" data-normal="0m 1m 0m" type="button" id="model-blank" aria-label="Kalibrasi blank pada model" hidden><span class="action-hotspot-dot">01</span><span>BLANK</span></button>
+                  <button class="action-hotspot" slot="hotspot-measure" data-position="-0.281m 0.226m -0.116m" data-normal="0m 1m 0m" type="button" id="model-measure" aria-label="Ukur sampel pada model" hidden><span class="action-hotspot-dot">02</span><span>UKUR</span></button>
+                </model-viewer>
 
-          <div class="viewer-frame" id="viewer-frame">
-            <div class="viewer-grid" aria-hidden="true"></div>
-            <div class="viewer-topline" aria-hidden="true"><span>UV–VIS SPECTROPHOTOMETER</span><span>MODEL INTERAKTIF / 3D</span></div>
-            <div class="viewer-mode-switch" role="group" aria-label="Tampilan model 3D">
-              <button type="button" id="view-components" aria-pressed="true">Bagian alat</button>
-              <button type="button" id="view-simulator" aria-pressed="false">Simulasi 3D <span aria-hidden="true">↗</span></button>
-            </div>
-            <model-viewer
-              id="instrument-model"
-              src="./spectrophotometer.glb?v=3"
-              alt="Model 3D spektrofotometer UV-Vis dengan panel dan ruang sampel yang terbuka"
-              camera-controls
-              disable-tap
-              camera-orbit="180deg 72deg auto"
-              camera-target="-0.19m 0.18m -0.06m"
-              field-of-view="30deg"
-              interpolation-decay="230"
-              shadow-intensity="0.5"
-              exposure="1.3"
-              environment-image="neutral"
-              interaction-prompt="none"
-              aria-label="Model tiga dimensi spektrofotometer. Seret untuk memutar, gulir untuk memperbesar, atau pilih hotspot bernomor."
-            >
-              <button class="hotspot" slot="hotspot-1" data-position="-0.014m 0.127m -0.099m" data-normal="-1m 0m 0m" type="button" aria-label="1. Sumber Cahaya" data-part="0">1</button>
-              <button class="hotspot" slot="hotspot-2" data-position="-0.165m 0.136m -0.102m" data-normal="1m 0m 0m" type="button" aria-label="2. Detektor" data-part="1">2</button>
-              <button class="hotspot" slot="hotspot-3" data-position="-0.099m 0.153m -0.107m" data-normal="0m 1m 0m" type="button" aria-label="3. Kuvet atau Wadah Sampel" data-part="2">3</button>
-              <button class="hotspot" slot="hotspot-4" data-position="-0.295m 0.223m -0.035m" data-normal="0m 1m 0m" type="button" aria-label="4. Monitor" data-part="3">4</button>
-              <button class="hotspot" slot="hotspot-5" data-position="-0.295m 0.205m -0.119m" data-normal="0m 1m 0m" type="button" aria-label="5. Tombol Kontrol" data-part="4">5</button>
-              <button class="hotspot" slot="hotspot-6" data-position="-0.089m 0.328m 0.037m" data-normal="0m 0m 1m" type="button" aria-label="6. Penutup Ruang Sampel" data-part="5">6</button>
-              <button class="hotspot" slot="hotspot-7" data-position="-0.088m 0.181m -0.184m" data-normal="0m 1m 0m" type="button" aria-label="7. Ruang Sampel" data-part="6">7</button>
-              <button class="action-hotspot" slot="hotspot-power" data-position="-0.347m 0.226m -0.116m" data-normal="0m 1m 0m" type="button" id="model-power" aria-label="Tekan tombol Power pada model" hidden><span class="action-hotspot-dot">⏻</span><span>POWER</span></button>
-              <button class="action-hotspot" slot="hotspot-blank" data-position="-0.315m 0.226m -0.116m" data-normal="0m 1m 0m" type="button" id="model-blank" aria-label="Kalibrasi blank pada model" hidden><span class="action-hotspot-dot">01</span><span>BLANK</span></button>
-              <button class="action-hotspot" slot="hotspot-measure" data-position="-0.281m 0.226m -0.116m" data-normal="0m 1m 0m" type="button" id="model-measure" aria-label="Ukur sampel pada model" hidden><span class="action-hotspot-dot">02</span><span>UKUR</span></button>
-            </model-viewer>
+                <div class="viewer-loading" id="viewer-loading" role="status"><span class="loading-spinner" aria-hidden="true"></span><span id="loading-message">Menyiapkan model 3D…</span></div>
+                <button class="viewer-reset" id="reset-view" type="button" aria-label="Kembalikan kamera ke tampilan awal" title="Reset tampilan">↺</button>
 
-            <div class="viewer-loading" id="viewer-loading" role="status"><span class="loading-spinner" aria-hidden="true"></span><span id="loading-message">Menyiapkan model 3D…</span></div>
-            <button class="viewer-reset" id="reset-view" type="button" aria-label="Kembalikan kamera ke tampilan awal" title="Reset tampilan">↺</button>
+                <div class="viewer-bottom-left">
+                  <span class="viewer-hint"><span class="hint-icon" aria-hidden="true">✳</span> SERET UNTUK MEMUTAR <span aria-hidden="true">·</span> SCROLL UNTUK ZOOM</span>
+                  <button class="lid-button" id="lid-toggle" type="button" disabled><span class="lid-symbol" aria-hidden="true">↧</span><span id="lid-label">Tutup ruang sampel</span></button>
+                </div>
 
-            <div class="viewer-bottom-left">
-              <span class="viewer-hint"><span class="hint-icon" aria-hidden="true">✳</span> SERET UNTUK MEMUTAR <span aria-hidden="true">·</span> SCROLL UNTUK ZOOM</span>
-              <button class="lid-button" id="lid-toggle" type="button" disabled><span class="lid-symbol" aria-hidden="true">↧</span><span id="lid-label">Tutup ruang sampel</span></button>
-            </div>
-
-            <div class="viewer-bottom-right">
-              <div class="part-card" id="part-card" hidden aria-live="polite">
-                <span class="part-card-count" id="part-count">BAGIAN 01 / 07</span>
-                <h2 id="part-title">Sumber Cahaya</h2>
-                <p id="part-description"></p>
+                <div class="viewer-bottom-right">
+                  <div class="part-card" id="part-card" hidden aria-live="polite">
+                    <span class="part-card-count" id="part-count">BAGIAN 01 / 07</span>
+                    <h2 id="part-title">Sumber Cahaya</h2>
+                    <p id="part-description"></p>
+                  </div>
+                  <div class="procedure-card" id="procedure-card" hidden aria-live="polite">
+                    <span class="procedure-kicker">SIMULASI PENGGUNAAN / 3D</span>
+                    <strong id="procedure-title">01 / Nyalakan alat</strong>
+                    <p id="procedure-description">Tekan Power pada model, lalu lakukan Blank dan Ukur. Gerakan penutup, kuvet, tombol, dan cahaya akan mengikuti.</p>
+                    <div class="procedure-progress" aria-label="Tahap pengukuran"><span id="step-power">POWER</span><span id="step-blank">BLANK</span><span id="step-measure">UKUR</span></div>
+                    <button type="button" id="demo-button" class="demo-button" disabled><span aria-hidden="true">▶</span> Putar demo lengkap</button>
+                    <small>Visualisasi cahaya dibuat tembus pandang untuk pembelajaran.</small>
+                  </div>
+                  <div class="viewer-navigation" id="viewer-navigation" aria-label="Navigasi bagian alat">
+                    <span class="navigation-label"><span class="navigation-kicker">JELAJAHI BAGIAN</span><strong id="navigation-count">— / 07</strong></span>
+                    <button type="button" id="previous-part" aria-label="Bagian sebelumnya">‹</button>
+                    <button type="button" id="next-part" aria-label="Bagian selanjutnya">›</button>
+                  </div>
+                </div>
               </div>
-              <div class="procedure-card" id="procedure-card" hidden aria-live="polite">
-                <span class="procedure-kicker">SIMULASI PENGGUNAAN / 3D</span>
-                <strong id="procedure-title">01 / Nyalakan alat</strong>
-                <p id="procedure-description">Tekan Power pada model, lalu lakukan Blank dan Ukur. Gerakan penutup, kuvet, tombol, dan cahaya akan mengikuti.</p>
-                <div class="procedure-progress" aria-label="Tahap pengukuran"><span id="step-power">POWER</span><span id="step-blank">BLANK</span><span id="step-measure">UKUR</span></div>
-                <button type="button" id="demo-button" class="demo-button" disabled><span aria-hidden="true">▶</span> Putar demo lengkap</button>
-                <small>Visualisasi cahaya dibuat tembus pandang untuk pembelajaran.</small>
-              </div>
-              <div class="viewer-navigation" id="viewer-navigation" aria-label="Navigasi bagian alat">
-                <span class="navigation-label"><span class="navigation-kicker">JELAJAHI BAGIAN</span><strong id="navigation-count">— / 07</strong></span>
-                <button type="button" id="previous-part" aria-label="Bagian sebelumnya">‹</button>
-                <button type="button" id="next-part" aria-label="Bagian selanjutnya">›</button>
-              </div>
-            </div>
-          </div>
-          <p class="viewer-caption">Pilih angka untuk mengenal komponen, atau buka Simulasi 3D untuk menjalankan langkah penggunaan langsung pada model. Klik area kosong untuk mengatur ulang kamera.</p>
-        </section>
-
-        <section class="simulation-section" aria-labelledby="simulation-title">
-          <div class="section-heading simulation-heading">
-            <div><span class="eyebrow">02 / SIMULASI</span><h2 id="simulation-title">Lakukan pengukuran.</h2></div>
-            <p>Tombol konsol dan tombol pada model menggerakkan urutan penggunaan 3D yang sama.</p>
-          </div>
-
-          <div class="instrument-console" id="instrument-console">
-            <div class="console-head">
-              <div><span class="console-super">INSTRUMENT CONTROL / UV–VIS</span><span class="console-name">Konsol pengukuran</span></div>
-              <button id="power-button" class="power-button" type="button" aria-pressed="false" aria-label="Nyalakan alat"><span class="led" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.75v8.5M5.5 6.4a9 9 0 1 0 13 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="power-label">POWER OFF</span></button>
+              <p class="viewer-caption">Pilih angka untuk mengenal komponen, atau buka Simulasi 3D untuk menjalankan langkah penggunaan langsung pada model.</p>
             </div>
 
-            <div class="lcd-panel" aria-label="Layar hasil pengukuran">
-              <div class="lcd-topline"><span>UV / VISIBLE SPECTROPHOTOMETER</span><span id="lcd-state">● STANDBY</span></div>
-              <div class="lcd-columns">
-                <div class="lcd-column"><span class="lcd-label">PANJANG GELOMBANG <span>λ / NM</span></span><div class="lcd-value-group"><output id="wavelength-display" class="lcd-value">—</output><span class="lcd-unit">nm</span></div></div>
-                <div class="lcd-column"><span class="lcd-label">PEMBACAAN <span id="reading-mode-label">ABSORBANSI</span></span><div class="lcd-value-group"><output id="reading-display" class="lcd-value">—</output><span class="lcd-unit" id="reading-unit">Abs</span></div></div>
+            <div class="main-layout-right">
+              <div class="console-sidebar-heading">
+                <span class="eyebrow">02 / SIMULASI</span>
+                <h2 id="simulation-title">Lakukan pengukuran.</h2>
+                <p>Kontrol konsol dan model selalu terhubung.</p>
               </div>
-              <div class="lcd-bottomline"><span id="lcd-message">SISTEM MATI</span><span>UV–VIS / SIM–01</span></div>
-            </div>
-
-            <div class="control-deck">
-              <div class="wavelength-control">
-                <label for="wavelength-slider"><span>Panjang gelombang</span><strong><output id="wavelength-output">500</output> nm</strong></label>
-                <input type="range" id="wavelength-slider" min="200" max="1100" value="500" step="1" disabled aria-describedby="wavelength-help" />
-                <div class="slider-range" id="wavelength-help"><span>200 NM</span><span>1100 NM</span></div>
+              <div class="instrument-console" id="instrument-console">
+                <div class="console-head">
+                  <div><span class="console-super">INSTRUMENT CONTROL / UV–VIS</span><span class="console-name">Konsol pengukuran</span></div>
+                  <button id="power-button" class="power-button" type="button" aria-pressed="false" aria-label="Nyalakan alat"><span class="led" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.75v8.5M5.5 6.4a9 9 0 1 0 13 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="power-label">POWER OFF</span></button>
+                </div>
+                <div class="lcd-panel" aria-label="Layar hasil pengukuran">
+                  <div class="lcd-topline"><span>UV / VISIBLE SPECTROPHOTOMETER</span><span id="lcd-state">● STANDBY</span></div>
+                  <div class="lcd-columns">
+                    <div class="lcd-column"><span class="lcd-label">PANJANG GELOMBANG <span>λ / NM</span></span><div class="lcd-value-group"><output id="wavelength-display" class="lcd-value">—</output><span class="lcd-unit">nm</span></div></div>
+                    <div class="lcd-column"><span class="lcd-label">PEMBACAAN <span id="reading-mode-label">ABSORBANSI</span></span><div class="lcd-value-group"><output id="reading-display" class="lcd-value">—</output><span class="lcd-unit" id="reading-unit">Abs</span></div></div>
+                  </div>
+                  <div class="lcd-bottomline"><span id="lcd-message">SISTEM MATI</span><span>UV–VIS / SIM–01</span></div>
+                </div>
+                <div class="control-deck">
+                  <div class="wavelength-control">
+                    <label for="wavelength-slider"><span>Panjang gelombang</span><strong><output id="wavelength-output">500</output> nm</strong></label>
+                    <input type="range" id="wavelength-slider" min="200" max="1100" value="500" step="1" disabled aria-describedby="wavelength-help" />
+                    <div class="slider-range" id="wavelength-help"><span>200 NM</span><span>1100 NM</span></div>
+                  </div>
+                  <div class="mode-control" role="group" aria-label="Mode pembacaan"><span class="control-label">Mode pembacaan</span><div class="mode-switch"><button id="mode-abs" type="button" aria-pressed="true" disabled>Abs</button><button id="mode-trans" type="button" aria-pressed="false" disabled>%T</button></div></div>
+                  <div class="measure-control"><span class="control-label">Urutan kerja</span><div class="action-buttons"><button class="blank-button" id="blank-button" type="button" disabled><span class="action-number">01</span> Blank</button><button class="measure-button" id="measure-button" type="button" disabled><span class="action-number">02</span> Ukur <span aria-hidden="true">↗</span></button></div></div>
+                </div>
+                <div class="console-status" role="status" aria-live="polite"><span class="status-light" id="status-light" aria-hidden="true"></span><span id="status-message">Alat mati. Tekan Power untuk memulai.</span><span class="status-tag" id="status-tag">OFFLINE</span></div>
               </div>
-              <div class="mode-control" role="group" aria-label="Mode pembacaan"><span class="control-label">Mode pembacaan</span><div class="mode-switch"><button id="mode-abs" type="button" aria-pressed="true" disabled>Abs</button><button id="mode-trans" type="button" aria-pressed="false" disabled>%T</button></div></div>
-              <div class="measure-control"><span class="control-label">Urutan kerja</span><div class="action-buttons"><button class="blank-button" id="blank-button" type="button" disabled><span class="action-number">01</span> Blank</button><button class="measure-button" id="measure-button" type="button" disabled><span class="action-number">02</span> Ukur <span aria-hidden="true">↗</span></button></div></div>
             </div>
-            <div class="console-status" role="status" aria-live="polite"><span class="status-light" id="status-light" aria-hidden="true"></span><span id="status-message">Alat mati. Tekan Power untuk memulai.</span><span class="status-tag" id="status-tag">OFFLINE</span></div>
           </div>
         </section>
       </main>

@@ -77,6 +77,12 @@ model-viewer { display: block; width: 100%; height: 100%; position: relative; z-
 .viewer-navigation button:hover { background: #1d3454; color: white; }
 .viewer-caption { margin: 12px 2px 0; font-size: 13px; line-height: 1.55; color: #62707e; }
 
+.main-layout { display: grid; grid-template-columns: 1fr minmax(340px, 420px); gap: clamp(20px, 2.5vw, 36px); align-items: start; }
+.main-layout-left { min-width: 0; }
+.main-layout-right { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 18px; }
+.console-sidebar-heading h2 { font-size: clamp(22px, 2.5vw, 30px); line-height: 1.12; letter-spacing: -.055em; font-weight: 600; margin: 6px 0 0; }
+.console-sidebar-heading p { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 6px 0 0; }
+
 .simulation-section { margin-top: clamp(35px, 4.1vw, 62px); }
 .simulation-heading { margin-bottom: 22px; }
 .instrument-console { position: relative; padding: 24px clamp(20px, 3vw, 42px) 0; border: 1px solid #c8ddf0; border-radius: 21px; background: linear-gradient(145deg, rgba(220,233,248,.72) 0%, rgba(200,220,244,.55) 41%, rgba(230,240,252,.65) 100%); color: var(--ink); box-shadow: 0 22px 45px -20px #90b4d840, inset 0 1px 0 #ffffffa0; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); overflow: hidden; }
@@ -103,13 +109,13 @@ model-viewer { display: block; width: 100%; height: 100%; position: relative; z-
 .lcd-label { display: flex; justify-content: space-between; gap: 12px; color: #5078a0; font: 600 12px/1.3 var(--mono); letter-spacing: .04em; }
 .lcd-label span { color: #7898b5; text-align: right; }
 .lcd-value-group { min-height: 74px; display: flex; align-items: baseline; gap: 10px; padding-top: 8px; }
-.lcd-value { display: inline-block; min-width: 3ch; color: #9a8860; font: 500 clamp(43px, 5.5vw, 76px)/1 var(--mono); letter-spacing: -.09em; font-variant-numeric: tabular-nums; text-shadow: 0 0 14px #c0a05021; }
+.lcd-value { display: inline-block; min-width: 3ch; color: #9a8860; font: 500 clamp(32px, 4vw, 52px)/1 var(--mono); letter-spacing: -.09em; font-variant-numeric: tabular-nums; text-shadow: 0 0 14px #c0a05021; }
 .instrument-console.is-on .lcd-value { color: #c8930a; text-shadow: 0 0 18px #e8a01049, 0 0 32px #d8980830; }
 .lcd-unit { font: 600 14px/1 var(--mono); color: #a0885a; }
 .instrument-console.is-on .lcd-unit { color: #c0982a; }
 .lcd-bottomline { padding-top: 12px; border-top: 1px solid #b8cce040; }
 
-.control-deck { position: relative; display: grid; grid-template-columns: minmax(230px, 1.45fr) minmax(145px, .62fr) minmax(244px, .95fr); gap: clamp(20px, 3.2vw, 52px); padding: 26px 0 29px; align-items: end; }
+.control-deck { position: relative; display: grid; grid-template-columns: 1fr; gap: 20px; padding: 26px 0 29px; align-items: end; }
 .wavelength-control label { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; font-size: 15px; font-weight: 500; color: #2a4868; }
 .wavelength-control label strong { color: #1870b8; font: 600 15px/1 var(--mono); white-space: nowrap; }
 .wavelength-control input { display: block; width: 100%; height: 23px; margin: 13px 0 4px; background: transparent; appearance: none; -webkit-appearance: none; touch-action: none; cursor: pointer; }
@@ -144,8 +150,8 @@ model-viewer { display: block; width: 100%; height: 100%; position: relative; z-
 .site-footer a { color: #355e82; text-underline-offset: 3px; }
 
 @media (max-width: 950px) {
-  .control-deck { grid-template-columns: 1fr 1fr; gap: 23px 24px; }
-  .wavelength-control { grid-column: 1 / -1; }
+  .main-layout { grid-template-columns: 1fr; }
+  .main-layout-right { position: static; }
   .section-heading p { max-width: 240px; }
   .viewer-bottom-left { bottom: 24px; }
   .viewer-hint { display: none; }
@@ -182,7 +188,7 @@ model-viewer { display: block; width: 100%; height: 100%; position: relative; z-
   .console-name { font-size: 17px; }
   .power-button { min-height: 42px; padding: 0 9px; gap: 7px; font-size: 10px; }
   .power-button svg { width: 17px; height: 17px; }
-  .lcd-panel { padding: 13px 14px 12px; border-width: 4px; }
+  .lcd-panel { padding: 13px 14px 12px; }
   .lcd-topline, .lcd-bottomline { font-size: 9px; }
   .lcd-topline span:first-child { max-width: 180px; }
   .lcd-columns { margin: 18px 0 14px; gap: 0; }
@@ -193,8 +199,6 @@ model-viewer { display: block; width: 100%; height: 100%; position: relative; z-
   .lcd-value-group { min-height: 51px; gap: 4px; }
   .lcd-value { font-size: clamp(30px, 9vw, 48px); }
   .lcd-unit { font-size: 10px; }
-  .control-deck { grid-template-columns: 1fr; gap: 21px; padding: 25px 0; }
-  .wavelength-control { grid-column: auto; }
   .control-label { margin-bottom: 8px; }
   .console-status { align-items: flex-start; padding: 16px 0; font-size: 12px; }
   .console-status .status-tag { font-size: 9px; }
