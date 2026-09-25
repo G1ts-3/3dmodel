@@ -11,11 +11,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=20260925-r3" />
+    <link rel="stylesheet" href="./styles.css?v=20260925-r4" />
     <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
-    <script defer src="./app.js?v=20260925-r3"></script>
+    <script defer src="./app.js?v=20260925-r4"></script>
   </head>
-  <body data-release="2026-09-25-r3">
+  <body data-release="2026-09-25-r4">
     <div class="app-shell">
       <header class="site-header">
         <div class="brand" aria-label="Spectrophotometer UV-Vis">
@@ -27,7 +27,7 @@
           </span>
           <span class="brand-copy"><strong>Spectrophotometer</strong><span>UV–VIS <i aria-hidden="true"></i> LAB INTERAKTIF</span></span>
         </div>
-        <div class="header-right"><span class="release-stamp">REVISI 03 · 25 SEP</span></div>
+        <div class="header-right"><span class="release-stamp">REVISI 04 · 25 SEP</span></div>
       </header>
 
       <main>
@@ -47,7 +47,7 @@
             </div>
             <model-viewer
               id="instrument-model"
-              src="./spectrophotometer.glb?v=20260925-r3"
+              src="./spectrophotometer.glb?v=20260925-r4"
               alt="Model 3D spektrofotometer UV-Vis dengan panel dan ruang sampel yang terbuka"
               camera-controls
               disable-tap
@@ -65,12 +65,12 @@
               <button class="hotspot" slot="hotspot-2" data-position="-0.165m 0.136m -0.102m" data-normal="1m 0m 0m" type="button" aria-label="2. Detektor" data-part="1">2</button>
               <button class="hotspot" slot="hotspot-3" data-position="-0.099m 0.153m -0.107m" data-normal="0m 1m 0m" type="button" aria-label="3. Kuvet atau Wadah Sampel" data-part="2">3</button>
               <button class="hotspot" slot="hotspot-4" data-position="-0.295m 0.223m -0.035m" data-normal="0m 1m 0m" type="button" aria-label="4. Monitor" data-part="3">4</button>
-              <button class="hotspot" slot="hotspot-5" data-position="-0.295m 0.205m -0.119m" data-normal="0m 1m 0m" type="button" aria-label="5. Tombol Kontrol" data-part="4">5</button>
+              <button class="hotspot" slot="hotspot-5" data-position="-0.295m 0.207m -0.123m" data-normal="0m 1m 0m" type="button" aria-label="5. Tombol Kontrol" data-part="4">5</button>
               <button class="hotspot" slot="hotspot-6" data-position="-0.089m 0.328m 0.037m" data-normal="0m 0m 1m" type="button" aria-label="6. Penutup Ruang Sampel" data-part="5">6</button>
               <button class="hotspot" slot="hotspot-7" data-position="-0.088m 0.181m -0.184m" data-normal="0m 1m 0m" type="button" aria-label="7. Ruang Sampel" data-part="6">7</button>
-              <button class="action-hotspot" slot="hotspot-power" data-position="-0.315m 0.208m -0.0985m" data-normal="0m 1m 0m" type="button" id="model-power" aria-label="Tekan tombol Power pada model" hidden><span class="action-hotspot-dot">⏻</span><span class="action-hotspot-label">POWER</span></button>
-              <button class="action-hotspot" slot="hotspot-blank" data-position="-0.2465m 0.1977m -0.1417m" data-normal="0m 1m 0m" type="button" id="model-blank" aria-label="Kalibrasi blank pada tombol Zero" hidden><span class="action-hotspot-dot">01</span><span class="action-hotspot-label">BLANK / ZERO</span></button>
-              <button class="action-hotspot" slot="hotspot-measure" data-position="-0.3447m 0.1977m -0.1408m" data-normal="0m 1m 0m" type="button" id="model-measure" aria-label="Ukur sampel pada tombol konfirmasi" hidden><span class="action-hotspot-dot">02</span><span class="action-hotspot-label">UKUR / ✓</span></button>
+              <button class="action-hotspot" slot="hotspot-power" data-position="-0.249m 0.2032m -0.123m" data-normal="0m 1m 0m" type="button" id="model-power" aria-label="Tekan tombol fisik POWER pada model" hidden><span class="action-hotspot-label">POWER</span></button>
+              <button class="action-hotspot" slot="hotspot-blank" data-position="-0.295m 0.2032m -0.123m" data-normal="0m 1m 0m" type="button" id="model-blank" aria-label="Tekan tombol fisik BLANK untuk kalibrasi" hidden><span class="action-hotspot-label">BLANK</span></button>
+              <button class="action-hotspot" slot="hotspot-measure" data-position="-0.341m 0.2032m -0.123m" data-normal="0m 1m 0m" type="button" id="model-measure" aria-label="Tekan tombol fisik UKUR untuk mengukur sampel" hidden><span class="action-hotspot-label">UKUR</span></button>
             </model-viewer>
 
             <div class="viewer-loading" id="viewer-loading" role="status"><span class="loading-spinner" aria-hidden="true"></span><span id="loading-message">Menyiapkan model 3D…</span></div>

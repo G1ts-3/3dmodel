@@ -40,7 +40,7 @@ const parts = [
   { title: "Detektor", description: "Sensor fotodioda menerima cahaya setelah melewati sampel. Intensitas yang terukur dibandingkan dengan acuan blank.", target: "-0.158m 0.138m -0.102m", orbit: "119deg 49deg 0.27m" },
   { title: "Kuvet / Wadah Sampel", description: "Kuvet menampung larutan blank atau sampel. Sisi beningnya harus berada pada jalur cahaya saat pengukuran.", target: "-0.099m 0.133m -0.107m", orbit: "181deg 35deg 0.26m" },
   { title: "Monitor", description: "Layar pada alat mengikuti pembacaan di konsol: panjang gelombang, absorbansi atau transmitan, dan status langkah kerja.", target: "-0.295m 0.219m -0.039m", orbit: "168deg 44deg 0.28m" },
-  { title: "Tombol Kontrol", description: "Tiga tombol di panel model dapat digunakan langsung saat Simulasi 3D aktif: Power, Blank, dan Ukur.", target: "-0.295m 0.205m -0.12m", orbit: "174deg 35deg 0.25m" },
+  { title: "Tombol Kontrol", description: "Tiga tombol fisik pada panel model adalah POWER, BLANK, dan UKUR. Tekan tombolnya langsung pada mode Simulasi 3D.", target: "-0.295m 0.202m -0.123m", orbit: "174deg 35deg 0.25m" },
   { title: "Penutup Ruang Sampel", description: "Penutup berengsel menutup saat pembacaan sehingga cahaya luar tidak masuk. Tombol di kiri menggerakkannya secara manual.", target: "-0.089m 0.328m 0.025m", orbit: "132deg 58deg 0.39m" },
   { title: "Ruang Sampel", description: "Dudukan tiga kuvet bergerak untuk membawa blank atau sampel ke lintasan cahaya di antara sumber dan detektor.", target: "-0.089m 0.165m -0.111m", orbit: "196deg 35deg 0.28m" },
 ];
@@ -63,7 +63,6 @@ let modelReady = false;
 let displayMaterial = null;
 let lidMaterial = null;
 let transmittedMaterial = null;
-let keyMaterial = null;
 let lcdCanvas = null;
 let lcdTimer = null;
 let lcdGeneration = 0;
@@ -71,13 +70,6 @@ let lcdGeneration = 0;
 function setCamera(target, orbit) {
   viewer.setAttribute("camera-target", target);
   viewer.setAttribute("camera-orbit", orbit);
-}
-
-function showPhysicalKeys(visible) {
-  if (!keyMaterial) return;
-  const color = [.10, .48, .72, visible ? .82 : 0];
-  keyMaterial.pbrMetallicRoughness.setBaseColorFactor(color);
-  keyMaterial.setAlphaMode("BLEND");
 }
 
 function resetView() {
@@ -120,7 +112,6 @@ function setViewMode(mode) {
   document.querySelector("#view-simulator").setAttribute("aria-pressed", String(sim));
   anatomyHotspots.forEach(button => { button.hidden = sim; });
   Object.values(actionHotspots).forEach(button => { button.hidden = !sim; });
-  showPhysicalKeys(sim);
   procedureCard.hidden = !sim;
   document.querySelector("#viewer-navigation").hidden = sim;
   partCard.hidden = sim || activePart < 0;
@@ -504,8 +495,6 @@ viewer.addEventListener("load", () => {
   displayMaterial = viewer.model?.materials?.find(material => material.name === "LiveInstrumentLCD") || null;
   lidMaterial = viewer.model?.materials?.find(material => material.name === "LidShellCutaway") || null;
   transmittedMaterial = viewer.model?.materials?.find(material => material.name === "TransmittedBeam") || null;
-  keyMaterial = viewer.model?.materials?.find(material => material.name === "NewControlKeys") || null;
-  showPhysicalKeys(viewMode === "simulation");
   renderConsole();
 });
 viewer.addEventListener("error", () => {
