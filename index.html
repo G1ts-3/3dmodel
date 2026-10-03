@@ -1,816 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Spectrophotometer Uv vis | Interactive 3D</title>
-<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
-<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADNklEQVR4nE1TXWgcVRT+7rkzE3cNmWRXTWIxMWl+NuBDaZY0S1xC1YiNQoPVFG0jCsWifelDq2jAsIlWaN78oUKKCH1Q8iJSWip9aUpbW6F9CAVBmjZFk6wPu6a72exsZ+49cmc3xYHL3L/zfed+5zsC1U8AYBIC4/tfT95Zvv++Uv4LhULxWQDkug1/19U9tpBIdJ8+8/2PC4EKwMxCCMFiK5iZ7cHUwIncev5DpVRUKQUiCtG11uHcsm2/tbn5h08+mjw2OjpaCEEAEDNb/QM759cL63tVoCCEUGa/Bm7WhkBrraW0JFqaW65Mfzbz2sjISFGYtPt37ZzN/Zs/pgLlCyGsrUDDatiZ2YCE2TCzT0R2e9szZ65evv6OePPtsf5bNxevBUEghRD/YyV43iZs2wlHEPghiDlUWqtIJCKHh9J7aPnuX0e01k6NocosCKXSBtJDw/j46CS62ntghDN3uJaZ53m4s3z3KAWB2q2UCve30i5XPOxKDuK9A4fx8sgePL2tFaVSCZJktWRCSKU1NjaKaSoUC21EVKuGAGsF9j288tIY+ntT+PP2Enb0DSLR04eyV65mwQxJhFwuH30kWPjTASjq4vHGFly7dAFRjuGns6fR6MYwvncCs99M12xjblfDyG1wV43SEIIBBksbsTdmsRjtwfEvJnDz9lX8vngFtmOjod6F1mGZEegA8Xi8Qo7jXA4Nw1ozWVCFLLyfP0WsYwDPvXUSsSdbkRoYQvnhJh4U10EkzRM0EXGT23TD2t7ddSqXz41XKhUYKfaNHkbXtu2olFfgdHZCtU4h6ljwA4XUjt24sbgA23I4GolSb6L7KyGlRCo9OLeyunKINfyOpxK2JNs8Bjp4CEESSunQCw/KOazl7/uWZdu93T1nL5z7dSy08vnr5+tnjk+fy2azz296JSYSplPI1Lbqi1B5DRZw7Drq7Oz44+Rk5sXk8HBW1FzKF+cvul/OzXy9uvbPQc+rCCOslNVmMv1BkhCJRNDe1vbL55kTHySTybWpqamw/o9a07FtvHto4tWlpXtHisViOpfP15vzJ+LxSlNj42+JvsSp776dmzcuNMGZTEb/B0aZaI3LdvdpAAAAAElFTkSuQmCC">
-<link rel="shortcut icon" href="data:image/x-icon;base64,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">
-<link rel="apple-touch-icon" sizes="64x64" href="favicon-64.png?v=2">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.1.0/dist/model-viewer.min.js"></script>
-<style>
-  :root {
-    --bg: #eef0ea;
-    --ink: #1b211d;
-    --ink-soft: #5b665d;
-    --ink-faint: #94a091;
-    --card: #e4e7dd;
-    --line: rgba(27,33,29,0.14);
-    --lcd-bg: #141c16;
-    --lcd-text: #f0ae3c;
-    --lcd-text-dim: rgba(240,174,60,0.25);
-    --led-off: #b9c1b2;
-    --led-on: #49ab68;
-    --led-on-glow: rgba(73,171,104,0.55);
-    --btn-bg: #edefe7;
-    --btn-bg-hover: #e2e6d8;
-    --btn-border: rgba(27,33,29,0.18);
-    --accent: #2f6e63;
-    --shadow: rgba(27,33,29,0.16);
-    /* fixed studio-backdrop tokens for the 3D stage: stay constant regardless of theme */
-    --stage-fixed: #e2e2dc;
-    --stage-fixed-ink: #20241f;
-    --stage-fixed-ink-soft: #57614f;
-    --font-display: 'Space Grotesk', system-ui, sans-serif;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
-  }
-
-  :root:not([data-theme="light"]) {
-    @media (prefers-color-scheme: dark) {
-      --bg: #11150f;
-      --ink: #eef1ea;
-      --ink-soft: #b6c0b3;
-      --ink-faint: #6f7c72;
-      --card: #1a2018;
-      --line: rgba(238,241,234,0.12);
-      --btn-bg: #1f251c;
-      --btn-bg-hover: #262d22;
-      --btn-border: rgba(238,241,234,0.16);
-      --shadow: rgba(0,0,0,0.5);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --bg: #11150f;
-    --ink: #eef1ea;
-    --ink-soft: #b6c0b3;
-    --ink-faint: #6f7c72;
-    --card: #1a2018;
-    --line: rgba(238,241,234,0.12);
-    --btn-bg: #1f251c;
-    --btn-bg-hover: #262d22;
-    --btn-border: rgba(238,241,234,0.16);
-    --shadow: rgba(0,0,0,0.5);
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-body);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ---------- Hero / 3D stage (Sketchfab-style, full-bleed, fixed light backdrop) ---------- */
-  .viewer-hero {
-    position: relative;
-    width: 100%;
-    background: var(--stage-fixed);
-    padding-top: env(safe-area-inset-top, 0px);
-    overflow: hidden;
-  }
-
-  model-viewer {
-    width: 100%;
-    height: min(72vh, 540px);
-    display: block;
-    background: transparent;
-    --poster-color: transparent;
-  }
-
-  @media (max-width: 640px) {
-    model-viewer { height: min(58vh, 420px); }
-  }
-
-  .brand {
-    position: absolute;
-    top: calc(18px + env(safe-area-inset-top, 0px));
-    left: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .brand-badge {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-
-  .brand-badge img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-  }
-
-  .brand-text strong {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--stage-fixed-ink);
-    line-height: 1.25;
-  }
-
-  .brand-text span {
-    display: block;
-    font-size: 0.72rem;
-    color: var(--stage-fixed-ink-soft);
-  }
-
-  .reset-view {
-    position: absolute;
-    top: calc(18px + env(safe-area-inset-top, 0px));
-    right: 18px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid rgba(32,36,31,0.18);
-    background: rgba(255,255,255,0.65);
-    color: var(--stage-fixed-ink-soft);
-    font-size: 0.9rem;
-    cursor: pointer;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .reset-view:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* hotspots are real light-DOM children of model-viewer, positioned by it in 3D */
-  .hotspot {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.94);
-    border: 1px solid rgba(0,0,0,0.15);
-    color: var(--stage-fixed-ink);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 7px rgba(0,0,0,0.28);
-    transition: background 0.15s ease, transform 0.15s ease, color 0.15s ease;
-    padding: 0;
-  }
-
-  .hotspot:hover { transform: scale(1.14); }
-
-  .hotspot.active {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  .info-card {
-    position: absolute;
-    left: 50%;
-    bottom: 76px;
-    transform: translateX(-50%);
-    max-width: min(360px, 86vw);
-    background: rgba(20,26,20,0.9);
-    color: #f2f4ef;
-    border-radius: 8px;
-    padding: 14px 16px;
-    z-index: 3;
-    box-shadow: 0 14px 30px -16px rgba(0,0,0,0.5);
-    opacity: 0;
-    transform: translate(-50%, 6px);
-    pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease;
-  }
-
-  .info-card.shown {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-
-  .info-card h3 {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin: 0 0 5px;
-  }
-
-  .info-card p {
-    font-size: 0.79rem;
-    line-height: 1.5;
-    margin: 0;
-    color: rgba(242,244,239,0.82);
-  }
-
-  .anno-nav {
-    position: absolute;
-    left: 50%;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(255,255,255,0.82);
-    padding: 8px 10px 8px 16px;
-    border-radius: 999px;
-    z-index: 3;
-    box-shadow: 0 10px 22px -12px rgba(0,0,0,0.35);
-    backdrop-filter: blur(6px);
-  }
-
-  .anno-nav button {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: var(--stage-fixed-ink-soft);
-    font-size: 1.05rem;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  .anno-nav button:hover { color: var(--accent); }
-
-  .anno-nav span {
-    font-family: var(--font-body);
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--stage-fixed-ink);
-    min-width: 128px;
-    text-align: center;
-  }
-
-  .stage-hint {
-    position: absolute;
-    top: calc(18px + env(safe-area-inset-top, 0px));
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-mono);
-    font-size: 0.63rem;
-    color: var(--stage-fixed-ink-soft);
-    z-index: 2;
-    opacity: 0.85;
-  }
-
-  @media (max-width: 640px) {
-    .stage-hint { display: none; }
-  }
-
-  /* ---------- Console (operate the instrument) ---------- */
-  .wrap { max-width: 600px; margin: 0 auto; padding: 40px 20px calc(30px + env(safe-area-inset-bottom, 0px)); }
-
-  .device {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 14px;
-    box-shadow: 0 18px 40px -26px var(--shadow);
-  }
-
-  .device-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 6px 12px;
-  }
-
-  .power-btn {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    background: transparent;
-    border: none;
-    padding: 4px 2px;
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .led {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--led-off);
-    flex-shrink: 0;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .power-btn.on .led {
-    background: var(--led-on);
-    box-shadow: 0 0 8px 1px var(--led-on-glow);
-  }
-
-  .status {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--ink-faint);
-    text-align: right;
-    min-height: 1.2em;
-  }
-
-  .lcd {
-    background: var(--lcd-bg);
-    border-radius: 4px;
-    padding: 16px 18px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .lcd-field { flex: 1; }
-
-  .lcd-label {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    color: var(--lcd-text-dim);
-    letter-spacing: 0.06em;
-    margin-bottom: 4px;
-  }
-
-  .lcd-value {
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--lcd-text);
-    text-shadow: 0 0 10px rgba(240,174,60,0.35);
-  }
-
-  .lcd-field.right { text-align: right; }
-
-  .controls { margin-top: 16px; padding: 2px 6px 6px; }
-
-  fieldset { border: none; margin: 0; padding: 0; opacity: 1; transition: opacity 0.2s ease; }
-  fieldset:disabled { opacity: 0.4; }
-
-  .wl-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--ink-faint);
-    margin-bottom: 6px;
-  }
-
-  input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--btn-border);
-    margin: 0 0 16px;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 3px solid var(--card);
-    box-shadow: 0 0 0 1px var(--accent);
-    cursor: pointer;
-  }
-
-  input[type="range"]::-moz-range-thumb {
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 3px solid var(--card);
-    box-shadow: 0 0 0 1px var(--accent);
-    cursor: pointer;
-  }
-
-  .action-row { display: flex; gap: 8px; }
-
-  .mode-toggle {
-    display: flex;
-    border: 1px solid var(--btn-border);
-    border-radius: 4px;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  .mode-toggle button {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 10px 12px;
-    background: var(--btn-bg);
-    border: none;
-    color: var(--ink-soft);
-    cursor: pointer;
-  }
-
-  .mode-toggle button + button { border-left: 1px solid var(--btn-border); }
-
-  .mode-toggle button.active { background: var(--ink); color: var(--card); }
-
-  button.action {
-    flex: 1;
-    font-family: var(--font-body);
-    font-size: 0.86rem;
-    font-weight: 600;
-    padding: 10px 14px;
-    border-radius: 4px;
-    border: 1px solid var(--btn-border);
-    background: var(--btn-bg);
-    color: var(--ink);
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-
-  button.action:hover { background: var(--btn-bg-hover); }
-
-  button.action.primary { background: var(--ink); color: var(--card); border-color: var(--ink); }
-
-  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  .note {
-    text-align: center;
-    font-size: 0.72rem;
-    color: var(--ink-faint);
-    margin: 16px auto 0;
-    max-width: 42ch;
-    line-height: 1.5;
-  }
-
-  footer { text-align: center; margin-top: 26px; }
-  footer p { margin: 0; font-size: 0.74rem; color: var(--ink-faint); line-height: 1.6; }
-
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e9f3f7">
+  <meta name="description" content="Jelajahi instrumen UV–Vis, pilih larutan, dan lihat spektrum serta absorbansi dalam simulasi interaktif.">
+  <title>UV–Vis Lab · Eksplorasi Spektrofotometer</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.1.0/dist/model-viewer.min.js"></script>
+  <script defer src="sim-core.js"></script>
+  <script defer src="app.js"></script>
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="#atas" aria-label="UV–Vis Lab, kembali ke atas">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M10 29h20M14 25l9-14 4 3-9 14M12 30c0-5 4-8 9-8M18 10l4-5 7 5-4 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span><strong>UV–Vis Lab</strong><small>Ruang eksplorasi</small></span>
+    </a>
+    <span class="header-tag"><span class="live-dot"></span> Model interaktif</span>
+  </header>
 
-  <section class="viewer-hero">
-    <div class="brand">
-      <div class="brand-badge"><img src="favicon-64.png" alt="Logo" width="32" height="32"></div>
-      <div class="brand-text">
-        <strong>Spectrophotometer Uv vis</strong>
-        <span>model oleh akardunia</span>
-      </div>
-    </div>
-    <button class="reset-view" id="resetBtn" type="button" title="Reset tampilan" aria-label="Reset tampilan">&#8635;</button>
-    <span class="stage-hint">drag &middot; scroll &middot; klik nomor untuk penjelasan bagian</span>
-
-    <model-viewer
-      id="mv"
-      src="spectrophotometer.glb"
-      alt="Model 3D Spectrophotometer Uv vis"
-      camera-controls
-      touch-action="pan-y"
-      shadow-intensity="0.9"
-      exposure="1.05"
-      
-      camera-orbit="180deg 72deg auto"
-      min-camera-orbit="auto auto 5%"
-      max-camera-orbit="auto auto 250%"
-      interaction-prompt="none">
-    </model-viewer>
-
-    <div class="info-card" id="infoCard">
-      <h3 id="infoTitle"></h3>
-      <p id="infoDesc"></p>
+  <main id="atas" class="page-shell">
+    <div class="page-heading">
+      <div><p class="eyebrow">SPEKTROFOTOMETER · UV–VIS</p><h1>Lihat, coba, pahami.</h1></div>
+      <p>Putar alat, pilih larutan, lalu amati apa yang terbaca di komputer.</p>
     </div>
 
-    <div class="anno-nav">
-      <button type="button" id="prevAnno" aria-label="Bagian sebelumnya">&#8249;</button>
-      <span id="annoLabel">Pilih bagian</span>
-      <button type="button" id="nextAnno" aria-label="Bagian selanjutnya">&#8250;</button>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="device">
-      <div class="device-head">
-        <button class="power-btn" id="powerBtn" type="button" aria-pressed="false">
-          <span class="led"></span>
-          <span id="powerLabel">Nyalakan</span>
-        </button>
-        <span class="status" id="status" aria-live="polite"></span>
-      </div>
-
-      <div class="lcd">
-        <div class="lcd-field">
-          <div class="lcd-label">&lambda; NM</div>
-          <div class="lcd-value" id="wlValue">&mdash;</div>
-        </div>
-        <div class="lcd-field right">
-          <div class="lcd-label" id="readLabel">READING</div>
-          <div class="lcd-value" id="readValue">&mdash;</div>
-        </div>
-      </div>
-
-      <div class="controls">
-        <fieldset id="fieldset" disabled>
-          <div class="wl-row"><span>200 nm</span><span>1100 nm</span></div>
-          <input type="range" id="wlSlider" min="200" max="1100" step="1" value="500">
-          <div class="action-row">
-            <div class="mode-toggle">
-              <button type="button" id="modeAbs" class="active">Abs</button>
-              <button type="button" id="modeT">%T</button>
+    <div class="workbench">
+      <section class="tray-section cuvette-panel" aria-label="Isi kuvet">
+      <div class="tray-title"><h2>Isi kuvet</h2><p><b>Kuvet merah di belakang berisi aquades; larutan terpilih masuk ke kuvet abu di depan.</b></p></div>
+      <div class="tray-group"><span class="group-label">BLANKO</span><div id="blank-solutions" class="solution-row"></div></div>
+      <div class="tray-group"><span class="group-label">STANDAR</span><div id="standard-solutions" class="solution-row"></div></div>
+      <div class="tray-group"><span class="group-label">DERET SAMPEL</span><div id="sample-solutions" class="solution-row"></div></div>
+      <div id="weight-panel" class="weight-panel" hidden><strong>Bobot sampel</strong><p>Masukkan bobot yang digunakan untuk preparasi sampel.</p><label>Pilih bobot (gram) <select id="weight-select"><option value="0.010">0,0100 gram (preparasi tablet)</option><option value="0.050">0,0500 gram</option><option value="0.100">0,1000 gram</option><option value="manual">Input manual</option></select></label><label id="manual-weight-wrap" hidden>Bobot manual (gram) <input id="sample-weight" type="number" min="0" step="0.0001" value="0.0100"></label><small id="weight-info"></small></div>
+      <details class="more-solutions"><summary>Lihat larutan lainnya <span id="other-count"></span><span class="chevron">⌄</span></summary><div id="other-solutions" class="solution-row"></div></details>
+    </section>
+      <section class="instrument-section" aria-label="Model instrumen interaktif">
+        <div class="stage" id="stage">
+          <div class="stage-top"><span class="stage-label">INSTRUMEN <b>01</b> / CARY 100</span><span class="stage-hint">Seret untuk memutar · scroll untuk zoom</span></div>
+          <model-viewer id="instrument" src="spectrophotometer.glb" alt="Model tiga dimensi instrumen spektrofotometer UV–Vis dengan dua kuvet berbaris depan-belakang dan tutup ruang sampel" camera-controls touch-action="pan-y" interaction-prompt="none" camera-orbit="180deg 65deg 1.7m" camera-target="0m 0.17m 0m" min-camera-orbit="auto 0deg 0.25m" max-camera-orbit="auto 90deg auto" min-field-of-view="18deg" max-field-of-view="58deg" field-of-view="30deg" shadow-intensity="1" shadow-softness=".8" exposure=".95" tone-mapping="neutral">
+            <button class="hotspot" slot="hotspot-1" data-position="-0.324m 0.288m -0.027m" data-normal="0m 1m 0m" data-part="0" aria-label="Sumber cahaya di sisi kanan">1</button>
+            <button class="hotspot" slot="hotspot-2" data-position="-0.259m 0.288m -0.027m" data-normal="0m 1m 0m" data-part="1" aria-label="Monokromator">2</button>
+            <button class="hotspot" slot="hotspot-3" data-position="-0.166m 0.325m 0.053m" data-normal="0m 1m 0m" data-part="2" aria-label="Kuvet blanko (belakang)">3</button>
+            <button class="hotspot" slot="hotspot-4" data-position="-0.166m 0.305m -0.107m" data-normal="0m 1m 0m" data-part="3" aria-label="Kuvet sampel (depan)">4</button>
+            <button class="hotspot" slot="hotspot-5" data-position="-0.012m 0.285m -0.027m" data-normal="0m 1m 0m" data-part="4" aria-label="Detektor di sisi kiri">5</button>
+            <button class="hotspot" slot="hotspot-6" data-position="-0.166m 0.21m -0.212m" data-normal="0m 0m -1m" data-part="5" aria-label="Penutup sampel">6</button>
+            <button class="hotspot" slot="hotspot-7" data-position="0.496m 0.078m -0.45m" data-normal="0m 0m -1m" data-part="6" aria-label="Tombol daya">7</button>
+                      <span class="fill-anchor" slot="hotspot-8" data-position="-0.166m 0.30m -0.107m" data-normal="0m 1m 0m" aria-hidden="true"></span>
+          </model-viewer>
+          <div class="scan-hud" id="scan-hud" hidden role="status"><span class="hud-dot"></span><b id="hud-title">Scanning</b><span id="hud-nm">200 nm</span><i><em id="hud-bar"></em></i></div>
+          <div class="scan-optics" aria-hidden="true"><span>SATU PANJANG GELOMBANG · DUA JALUR</span><i></i><small>Kanan: sumber → prisma (pelangi) → celah hitam (slit) → pembagi berkas</small><small>Dua kuvet (blanko &amp; sampel) → detektor di kiri</small></div>
+          <div class="part-card" id="part-card" hidden><button id="close-part" aria-label="Tutup penjelasan">×</button><span id="part-number"></span><strong id="part-title"></strong><p id="part-copy"></p></div>
+          <div class="stage-bottom">
+            <div class="stage-actions">
+              <button class="soft-button" id="lid-button" aria-pressed="false"><span aria-hidden="true">◫</span> Buka tutup</button>
+              <button class="soft-button" id="instrument-power" aria-pressed="false"><span class="tiny-led"></span> Nyalakan alat</button>
+              <button class="icon-button" id="reset-view" aria-label="Atur ulang sudut pandang" title="Atur ulang sudut pandang">↺</button>
             </div>
-            <button type="button" class="action" id="blankBtn">Blank</button>
-            <button type="button" class="action primary" id="measureBtn">Ukur</button>
+            <button class="parts-button" id="parts-toggle" aria-pressed="false">Kenali bagian <span>ⓘ</span></button>
           </div>
-        </fieldset>
-      </div>
+        </div>
+        <div class="flow-strip" aria-label="Jalur cahaya dalam instrumen">
+          <span class="flow-caption">DI DALAM ALAT</span>
+          <span>Sumber cahaya (kanan)</span><i aria-hidden="true"></i><span>Monokromator (prisma + celah)</span><i aria-hidden="true"></i><span>Blanko + sampel</span><i aria-hidden="true"></i><span>Detektor (kiri)</span>
+        </div>
+      </section>
 
-      <p class="note">*Pembacaan disimulasikan untuk demonstrasi antarmuka. Penjelasan tiap bagian ditulis ulang berdasarkan struktur model ini, bukan kutipan resmi dari pembuatnya.</p>
+      <section class="connection-section" aria-label="Koneksi alat dan komputer">
+        <div class="pc-unit ucp" id="ucp-unit"><span class="pc-led"></span><b>UCP</b><small>Pengendali alat spektrofotometer</small></div>
+        <div class="pc-unit cpu" id="cpu-unit"><span class="pc-led"></span><b>CPU</b><small>Komputer yang menjalankan software</small></div>
+      </section>
+
+      <section class="computer-section" aria-label="Komputer dan perangkat lunak simulasi">
+        <div class="monitor">
+          <div class="monitor-bezel">
+            <div class="monitor-screen" id="screen">
+              <div class="software-launch" id="software-launch"><button id="open-software">▶ Buka Cary WinUV</button><small>Komputer aktif · software belum dijalankan</small></div>
+                            <div class="software" id="software">
+                <div class="software-top"><div class="software-name"><span class="app-symbol">◫</span><span>UV–Vis Studio<small>SIMULASI · CARY 100</small></span></div><span class="connection" id="connection"><span></span>Alat mati</span></div>
+                <div class="software-tabs" role="tablist" aria-label="Halaman perangkat lunak">
+                  <button role="tab" id="tab-scan" aria-controls="panel-scan" aria-selected="true" data-tab="scan">Spektrum</button>
+                  <button role="tab" id="tab-cal" aria-controls="panel-cal" aria-selected="false" data-tab="cal">Kurva kalibrasi</button>
+                  <button role="tab" id="tab-history" aria-controls="panel-history" aria-selected="false" data-tab="history">Riwayat <span id="history-count">0</span></button>
+                </div>
+                <div class="software-scroll">
+                  <section id="panel-scan" role="tabpanel" aria-labelledby="tab-scan" class="software-panel">
+                    <div class="screen-summary"><div><span class="micro-label">LARUTAN DI KUVET DEPAN</span><strong id="active-solution">Aquades</strong></div><div class="readout"><span class="micro-label">PADA <span id="readout-nm">246</span> nm</span><strong id="readout-value">—</strong><small id="readout-unit">Abs</small></div></div>
+                    <div class="chart-card">
+                      <div class="chart-heading"><span id="chart-title">Spektrum serapan</span><span class="chart-legend"><i></i> Absorbansi</span></div>
+                      <svg id="spectrum-chart" viewBox="0 0 420 208" preserveAspectRatio="none" role="img" aria-label="Grafik spektrum absorbansi"><g id="chart-grid"></g><path id="chart-area"></path><path id="chart-line"></path><g id="chart-cursor"></g><g id="chart-labels"></g><rect id="chart-hit" x="38" y="10" width="370" height="166" fill="transparent"></rect></svg>
+                      <div class="chart-foot"><span id="range-start">200 nm</span><span>Geser penunjuk pada kurva</span><span id="range-end">400 nm</span></div>
+                    </div>
+                    <div class="software-controls">
+                      <label>Rentang <select id="range-select"><option value="uv">UV · 200–400 nm</option><option value="vis">Vis · 400–800 nm</option><option value="all">Penuh · 200–800 nm</option></select></label>
+                      <div class="mode-control" role="group" aria-label="Mode pembacaan"><button id="mode-abs" class="active" aria-pressed="true">Abs</button><button id="mode-t" aria-pressed="false">%T</button></div>
+                    </div>
+                    <div class="run-controls"><button class="secondary-button" id="zero-button">Zero + baseline</button><button class="primary-button" id="scan-button">Mulai scan <span aria-hidden="true">↗</span></button></div>
+                    <p class="inline-message" id="screen-status" role="status">Nyalakan alat di sisi kiri model, lalu jalankan Zero + baseline dengan aquades.</p>
+                  </section>
+                  <section id="panel-cal" role="tabpanel" class="software-panel" hidden>
+                    <div class="tab-intro"><strong>Kurva Kalibrasi Deret Standar Thiamin</strong><p>Scan standar 0 sampai 25 ppm secara berurutan pada 246 nm. Titiknya masuk otomatis ke kurva kalibrasi.</p></div>
+                    <div class="cal-chart"><svg id="calibration-chart" viewBox="0 0 420 200" role="img" aria-label="Kurva kalibrasi standar"></svg></div>
+                    <div id="cal-points" class="cal-points"></div>
+                    <p class="cal-result" id="cal-result">Ukur setidaknya tiga standar untuk membuat garis kalibrasi.</p>
+                    <p class="cal-note">Konsentrasi sampel ditaksir dari garis ini setelah sampel di-scan.</p>
+                  </section>
+                  <section id="panel-history" role="tabpanel" class="software-panel" hidden>
+                    <div class="history-heading"><div><strong>Riwayat pengukuran</strong><p>Tersimpan di browser ini.</p></div><button id="clear-history" class="text-button">Hapus</button></div>
+                    <div id="history-list" class="history-list"></div>
+                  </section>
+                  <div class="formula-bar" id="formula-bar" hidden aria-live="polite"></div>
+                </div>
+              </div>
+              <div class="monitor-off" id="monitor-off" hidden><span>○</span><p>Monitor mati</p><small>Tekan tombol daya di bawah layar</small></div>
+            </div>
+            <div class="monitor-chin"><button id="monitor-power" class="monitor-power" aria-label="Matikan monitor" aria-pressed="true" title="Daya monitor"><span class="power-glyph">⏻</span></button><span class="monitor-mark">UV–VIS WORKSTATION</span><span class="monitor-led" id="monitor-led"></span></div>
+          </div>
+          <div class="monitor-neck"></div><div class="monitor-foot"></div>
+        </div>
+        <div class="under-monitor"><span class="cable-mark"><i></i> Terhubung lewat port belakang instrumen</span><details class="help"><summary>Panduan singkat</summary><p>Nyalakan alat, jalankan <b>Zero + baseline</b> (aquades di kedua kuvet), lalu <b>Mulai scan</b>. Satu tombol ini menjalankan pembacaan nol dan koreksi sepanjang rentang. Standar 0 sampai 25 ppm atau Presisi 1 sampai 5 berjalan berurutan: setelah satu selesai, larutan berikutnya otomatis masuk kuvet depan. Ganti kelompok larutan berarti kalibrasi ulang. Klik titik pada kurva untuk membaca panjang gelombang. Buka Kurva kalibrasi atau Riwayat kapan saja. Cahaya putih ada sebelum monokromator; sesudahnya kedua kuvet dilalui satu panjang gelombang yang sama. UV tidak tampak oleh mata, sehingga ditandai ungu dalam simulasi.</p></details></div>
+      </section>
     </div>
 
-    <footer>
-      <p>Model 3D "Spectrophotometer Uv vis" oleh akardunia, via Sketchfab.</p>
-    </footer>
-  </div>
-
-<script>
-  (function () {
-    var mv = document.getElementById('mv');
-
-    /* ---------- Annotations ---------- */
-    var annotations = [
-      {
-        title: 'Sumber Cahaya',
-        desc: 'Komponen yang memancarkan cahaya UV atau tampak. Umumnya memakai lampu deuterium untuk sinar UV (200–400 nm) dan lampu tungsten untuk sinar tampak (400–700 nm), lalu diarahkan menuju sampel.',
-        pos: '-0.098m 0.115m -0.195m',
-        orbit: '165deg 55deg 0.35m'
-      },
-      {
-        title: 'Detektor',
-        desc: 'Membandingkan intensitas cahaya sebelum dan sesudah melewati sampel, lalu mengubah selisihnya menjadi nilai absorbansi yang tampil di layar.',
-        pos: '-0.019m 0.128m -0.098m',
-        orbit: '225deg 40deg 0.35m'
-      },
-      {
-        title: 'Kuvet / Wadah Sampel',
-        desc: 'Tempat larutan sampel diletakkan. Wheel ini bisa memuat beberapa kuvet dan diputar untuk memindahkan salah satunya ke jalur cahaya.',
-        pos: '-0.099m 0.145m -0.095m',
-        orbit: '180deg 50deg 0.32m'
-      },
-      {
-        title: 'Monitor',
-        desc: 'Untuk mengeluarkan hasil dari analisis kimia.',
-        pos: '-0.295m 0.225m -0.035m',
-        orbit: '190deg 52deg 0.35m'
-      },
-      {
-        title: 'Tombol',
-        desc: 'Panel kontrol untuk mengatur panjang gelombang, memilih mode baca, serta memicu pengukuran blank dan sampel.',
-        pos: '-0.295m 0.202m -0.118m',
-        orbit: '190deg 55deg 0.33m'
-      },
-      {
-        title: 'Penutup Ruang Sampel',
-        desc: 'Menutup kompartemen supaya cahaya dari luar tidak ikut terbaca dan mengganggu hasil pengukuran.',
-        pos: '-0.089m 0.324m 0.014m',
-        orbit: '180deg 60deg 0.45m'
-      },
-      {
-        title: 'Ruang Sampel',
-        desc: 'Kompartemen tempat kuvet diletakkan, dilalui cahaya dari sumber menuju detektor.',
-        pos: '-0.089m 0.190m -0.055m',
-        orbit: '180deg 50deg 0.35m'
-      }
-    ];
-
-    var infoCard = document.getElementById('infoCard');
-    var infoTitle = document.getElementById('infoTitle');
-    var infoDesc = document.getElementById('infoDesc');
-    var annoLabel = document.getElementById('annoLabel');
-    var prevAnno = document.getElementById('prevAnno');
-    var nextAnno = document.getElementById('nextAnno');
-    var currentIndex = -1;
-
-    annotations.forEach(function (a, i) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'hotspot';
-      btn.slot = 'hotspot-' + (i + 1);
-      btn.setAttribute('data-position', a.pos);
-      btn.dataset.idx = i;
-      btn.textContent = i + 1;
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        selectAnnotation(i);
-      });
-      mv.appendChild(btn);
-    });
-
-    function selectAnnotation(idx) {
-      currentIndex = (idx + annotations.length) % annotations.length;
-      var a = annotations[currentIndex];
-      annoLabel.textContent = a.title;
-      infoTitle.textContent = a.title;
-      infoDesc.textContent = a.desc;
-      infoCard.classList.add('shown');
-      var hotspots = mv.querySelectorAll('.hotspot');
-      hotspots.forEach(function (h) {
-        h.classList.toggle('active', Number(h.dataset.idx) === currentIndex);
-      });
-
-      // Zoom in & focus ke target bagian
-      mv.cameraTarget = a.pos;
-      if (a.orbit) {
-        mv.cameraOrbit = a.orbit;
-      }
-    }
-
-    function resetAnnotationView() {
-      currentIndex = -1;
-      annoLabel.textContent = 'Pilih bagian';
-      infoCard.classList.remove('shown');
-      var hotspots = mv.querySelectorAll('.hotspot');
-      hotspots.forEach(function (h) {
-        h.classList.remove('active');
-      });
-      mv.cameraOrbit = defaultOrbit;
-      mv.fieldOfView = 'auto';
-      mv.cameraTarget = 'auto auto auto';
-    }
-
-    // Klik di area kosong viewer -> zoom out ke tampilan normal
-    var isPointerDragging = false;
-    var pointerDownPos = { x: 0, y: 0 };
-
-    mv.addEventListener('pointerdown', function (e) {
-      isPointerDragging = false;
-      pointerDownPos = { x: e.clientX, y: e.clientY };
-    });
-
-    mv.addEventListener('pointermove', function (e) {
-      if (Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y) > 6) {
-        isPointerDragging = true;
-      }
-    });
-
-    mv.addEventListener('click', function (e) {
-      if (!isPointerDragging && !e.target.closest('.hotspot')) {
-        resetAnnotationView();
-      }
-    });
-
-    prevAnno.addEventListener('click', function (e) {
-      e.stopPropagation();
-      selectAnnotation(currentIndex === -1 ? annotations.length - 1 : currentIndex - 1);
-    });
-    nextAnno.addEventListener('click', function (e) {
-      e.stopPropagation();
-      selectAnnotation(currentIndex === -1 ? 0 : currentIndex + 1);
-    });
-
-    var resetBtn = document.getElementById('resetBtn');
-    var defaultOrbit = '180deg 72deg auto';
-    resetBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      resetAnnotationView();
-      mv.jumpCameraToGoal();
-    });
-
-    /* ---------- Operate console ---------- */
-    var powerBtn = document.getElementById('powerBtn');
-    var powerLabel = document.getElementById('powerLabel');
-    var statusEl = document.getElementById('status');
-    var fieldset = document.getElementById('fieldset');
-    var wlSlider = document.getElementById('wlSlider');
-    var wlValue = document.getElementById('wlValue');
-    var readValue = document.getElementById('readValue');
-    var readLabel = document.getElementById('readLabel');
-    var modeAbsBtn = document.getElementById('modeAbs');
-    var modeTBtn = document.getElementById('modeT');
-    var blankBtn = document.getElementById('blankBtn');
-    var measureBtn = document.getElementById('measureBtn');
-
-    var state = { powered: false, mode: 'Abs', blanked: false, reading: null, measuring: false };
-
-    function computeAbsorbance(wl) {
-      var peak = 540, sigma = 55, amplitude = 1.65;
-      var a = amplitude * Math.exp(-Math.pow(wl - peak, 2) / (2 * sigma * sigma));
-      var noise = (Math.random() - 0.5) * 0.03;
-      return Math.max(0, a + noise);
-    }
-
-    function formatReading(a) {
-      if (state.mode === 'Abs') return a.toFixed(3);
-      var t = Math.pow(10, -a) * 100;
-      return t.toFixed(1);
-    }
-
-    function render() {
-      powerBtn.classList.toggle('on', state.powered);
-      powerLabel.textContent = state.powered ? 'Matikan' : 'Nyalakan';
-      fieldset.disabled = !state.powered;
-      readLabel.textContent = state.mode === 'Abs' ? 'ABSORBANSI' : 'TRANSMITAN %';
-
-      if (!state.powered) {
-        wlValue.textContent = '—';
-        readValue.textContent = '—';
-        statusEl.textContent = '';
-        return;
-      }
-
-      wlValue.textContent = wlSlider.value;
-
-      if (state.measuring) { statusEl.textContent = 'Mengukur…'; return; }
-
-      if (state.reading !== null) {
-        readValue.textContent = formatReading(state.reading);
-      } else if (state.blanked) {
-        readValue.textContent = state.mode === 'Abs' ? '0.000' : '100.0';
-      } else {
-        readValue.textContent = '—';
-      }
-
-      if (!state.blanked) {
-        statusEl.textContent = 'Blank dulu di panjang gelombang ini';
-      } else if (state.reading === null) {
-        statusEl.textContent = 'Siap mengukur';
-      } else {
-        statusEl.textContent = 'Terakhir diukur di ' + wlSlider.value + ' nm';
-      }
-    }
-
-    powerBtn.addEventListener('click', function () {
-      state.powered = !state.powered;
-      if (!state.powered) { state.blanked = false; state.reading = null; }
-      render();
-    });
-
-    wlSlider.addEventListener('input', function () {
-      state.blanked = false;
-      state.reading = null;
-      render();
-    });
-
-    modeAbsBtn.addEventListener('click', function () {
-      state.mode = 'Abs';
-      modeAbsBtn.classList.add('active');
-      modeTBtn.classList.remove('active');
-      render();
-    });
-
-    modeTBtn.addEventListener('click', function () {
-      state.mode = '%T';
-      modeTBtn.classList.add('active');
-      modeAbsBtn.classList.remove('active');
-      render();
-    });
-
-    blankBtn.addEventListener('click', function () {
-      if (!state.powered) return;
-      state.blanked = true;
-      state.reading = null;
-      render();
-    });
-
-    measureBtn.addEventListener('click', function () {
-      if (!state.powered || !state.blanked || state.measuring) { render(); return; }
-      state.measuring = true;
-      render();
-      setTimeout(function () {
-        state.measuring = false;
-        state.reading = computeAbsorbance(parseFloat(wlSlider.value));
-        render();
-      }, 550);
-    });
-
-    render();
-  })();
-</script>
-
+    
+    <footer><span>Simulasi untuk pembelajaran. Kurva dan angka adalah ilustrasi, bukan hasil pengujian laboratorium.</span><span>UV–Vis Lab · 2026</span></footer>
+  </main>
 </body>
 </html>
